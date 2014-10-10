@@ -3,5 +3,7 @@
 /db/community.json
 /db/tileDefinition.json
 /db/tileInstance.json
+/db/extstreamInstance.json
+/db/extstreamsDefinition.json
 /.project
 /extension.zip

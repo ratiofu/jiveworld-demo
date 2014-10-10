@@ -101,4 +101,11 @@ $ node app.js
 [ Adding a Tile Action ]
 
 - let's add an action to the tile
+- funkiness with action context: 
+
+[ Adding a Stream Integration ]
+
+$ jive-sdk list tiles
+$ jive-sdk create tile-activity --name="performance-notification"
+
 

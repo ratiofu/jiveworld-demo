@@ -4,7 +4,7 @@ exports.last = {
     'verb' : 'get',
     'route': function(req, res) {
         res.writeHead(200);
-        var random = Math.round(Math.random() * 1999) + 1;
+        var random = Math.round(Math.random() * 2999) + 1;
         jive.logger.info('last request duration: ' + random)
         res.end('' + random);
     }

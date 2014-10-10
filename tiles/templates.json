@@ -4,7 +4,7 @@
         "displayName": "JiveWorld Purposeful Places Add-on",
         "description": "Jive Node SDK-based integrations session demo",
         "tiles": [
-            "performance-tile"
+            "performance-tile", "performance-notification"
         ]
     }
 }

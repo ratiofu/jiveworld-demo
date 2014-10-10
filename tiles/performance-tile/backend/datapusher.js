@@ -34,10 +34,11 @@ function processTileInstance(instance) {
     var label = tileData.sections[index].label;
     var message = tileData.message + ": ";
     if (responseTime) {
-      message += (responseTime + " ms");
+      responseTime = (responseTime + " ms");
     } else {
-      message += "failure";
+      responseTime = "failure";
     }
+    message += responseTime;
     jive.logger.info("update tile %s to index %d with label '%s' and message: %s",
       instance.id, index, label, message);
     var dataToPush = {
@@ -45,7 +46,15 @@ function processTileInstance(instance) {
             "message": message,
             "sections": tileData.sections,
             "activeIndex": index,
-            "status": label
+            "status": label,
+            "action": {
+                "text": "Discuss the current performance",
+                "context": {
+                  "responseTime": responseTime,
+                  "level": index,
+                  "label": label
+                }
+              }
         }
     };
     jive.tiles.pushData(instance, dataToPush);

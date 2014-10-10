@@ -1,6 +1,5 @@
 jive.tile.onOpen(function(config, options) {
     gadgets.window.adjustHeight();
-    console.log(config)
     if (typeof config === "string" ) {
       config = JSON.parse(config);
     }

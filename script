@@ -3,6 +3,8 @@ $ : execute
 > : edit
 # : browse
 
+[ Intro ]
+
 - let's write an integration
 - we'll need a source of data with which to integrate,
   so let's whip up a quick service that creates some
@@ -50,6 +52,8 @@ $ node app.js
 $ node app.js
 # host:3000/performanceservice/last
 
+[ Building a Tile ]
+
 - cool, that's our 'remote' service we're going to integrate in a Purposeful Place
 - let's create a tile
 
@@ -69,14 +73,22 @@ $ jive-sdk create tile-gauge --name="performance-tile"
   sections = require("../definition.json").sampleData.sections
 - because we're reusing the tile definition for the sections, we
   won't need the following functions  
-  delete createSections
-  delete getSectionColor
+  > delete createSections
+  > delete getSectionColor
 - explain what exports.task does, change the interval to 5000 for demo purposes
 - set up the section ranges as arrays, and explain that this is easier than using keys
 
-> fix 'level' setting in main.js
-> fix background color in main.css
+> configure/get.js
+  - clean up code a bit
+$ rename main.js to config.js
+> main.js
+  TODO
+> main.css
+  TODO
+> configuration.html
+  - make sure it's actually included in the configuration template and the javascript reference updated
 
+[ Deploying a Tile ]
 
 - extension_src: automatically created and packaged into extension.zip every time you start up
 - to name our add-on with something than the generated values, go to db/jiveExtension.json
@@ -85,3 +97,8 @@ $ jive-sdk create tile-gauge --name="performance-tile"
 $ node app.js
 - install add-on > avatar > Add-ons > Upload Package > ...
 - in our case, where we're using the default file-based Jive persistence, the Jive instance's registration information show up in the db folder
+
+[ Adding a Tile Action ]
+
+- let's add an action to the tile
+

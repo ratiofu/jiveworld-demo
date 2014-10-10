@@ -1,0 +1,1 @@
+See https://community.jivesoftware.com/docs/DOC-97782

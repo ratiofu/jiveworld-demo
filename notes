@@ -1,0 +1,24 @@
+/* of we were to use persistence */
+    store = jive.service.persistence();
+    // sdk persistence API modeled after MongoDB
+    store.findByID('performanceservice', 'lastRequestDuration')
+      .then(function(lastDuration) {
+        jive.logger.debug('sending last duration to client', lastDuration)
+        res.writeHead(200)
+        res.end('' + lastDuration)
+      });
+    exports.task = new jive.tasks.build(
+      function() {
+        var duration = Math.round(Math.random() * 2000)
+        ('performanceservice', 'lastRequestDuration')
+        jive.logger.info("last request duration saved:", duration)
+      },
+      2500
+    );
+
+/*
+
+- Gauge Tile: https://community.jivesoftware.com/docs/DOC-97782
+- https://developers.jivesoftware.com/api/v3/cloud/rest/ActivityEntityCreate.html
+- https://developers.jivesoftware.com/api/v3/cloud/rest/ActivityService.html
+- Activity Tile (TODO): https://brewspace.jiveland.com/message/789461#789461

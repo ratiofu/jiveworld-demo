@@ -1,0 +1,7 @@
+/node_modules/
+/extension_src/
+/db/community.json
+/db/tileDefinition.json
+/db/tileInstance.json
+/.project
+/extension.zip

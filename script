@@ -1,0 +1,87 @@
+- : talk
+$ : execute
+> : edit
+# : browse
+
+- let's write an integration
+- we'll need a source of data with which to integrate,
+  so let's whip up a quick service that creates some
+- we're pretending that there's a source of performance-related
+  data, let's say a request duration for a live system
+- we'll just generate a bunch of random numbers within a certain
+  range and make those available as a web service
+- this isn't really part of what one needs to do for a tile
+  integration, but it's easy enough with the SDK, so here we go
+- the following assumes basic familiarity with Node JS and NPM
+
+$ npm install -g jive-sdk
+$ jive-sdk help
+$ jive-sdk list services
+$ jive-sdk create example-service --name="performanceservice"
+
+- let's do 2) first, lest we forget
+
+> jiveclientconfiguration.json:
+  - change port to 3000 (maps to 80 on nitrous)
+  - change URL to the nitrous.io box host name
+$ npm update
+
+- jive-sdk is built on top of express 3, but the SDK will auto-discover routes and templates for you if you follow a particular folder structure
+  so you'll find routes under a folder named backend, and as you can see we're starting out with a hello endpoint implementing a get method,
+  which in turn renders a templace server-side and sends it to the browser
+
+> service/performanceservice/definition.json: remove path prefix
+
+- let's see if the basics work
+
+$ node app.js
+# host:3000/performanceservice/hello
+
+- alright, that looks good, but we want a service that give use back a random number
+
+> services/performanceservice/backend/routes/explicit_routes.js:
+  - the name of the export is the name of the explicit endpoint, let's name it "last"
+  - we'll just generate a random number in the range 1 to 2000
+    Math.round(Math.random() * 1999) + 1
+  - jive.logger.info to log what we're sending ... needs var jive = require('jive-sdk')
+  - make sure we're returning a String or express gets confused
+
+> delete all the other stuff in service
+$ node app.js
+# host:3000/performanceservice/last
+
+- cool, that's our 'remote' service we're going to integrate in a Purposeful Place
+- let's create a tile
+
+$ jive-sdk list tiles
+$ jive-sdk create tile-gauge --name="performance-tile"
+> delete readme.html
+> edit definition.json:
+  #021677 #5a2bac #0088e1 #00c4dc
+  Trouble! Slow! Good Fast
+  "message": "Remote Service Performance"
+  "displayName": "Remote Performance"
+  "description": "Shows performance indicators of a remote service"
+  ... and others
+> lib.js:
+  
+> datapusher.js:
+  sections = require("../definition.json").sampleData.sections
+- because we're reusing the tile definition for the sections, we
+  won't need the following functions  
+  delete createSections
+  delete getSectionColor
+- explain what exports.task does, change the interval to 5000 for demo purposes
+- set up the section ranges as arrays, and explain that this is easier than using keys
+
+> fix 'level' setting in main.js
+> fix background color in main.css
+
+
+- extension_src: automatically created and packaged into extension.zip every time you start up
+- to name our add-on with something than the generated values, go to db/jiveExtension.json
+> "name": "JiveWorld Purposeful Places Add-on",
+  "description": "Jive Node SDK-based integrations session demo"
+$ node app.js
+- install add-on > avatar > Add-ons > Upload Package > ...
+- in our case, where we're using the default file-based Jive persistence, the Jive instance's registration information show up in the db folder

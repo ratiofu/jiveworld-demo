@@ -1,0 +1,8 @@
+{
+  "jiveExtension": {
+    "id": "jiveExtension",
+    "uuid": "d730665d-ba30-40c0-b46c-000a4e671882",
+    "name": "JiveWorld Purposeful Places Add-on",
+    "description": "Jive Node SDK-based integrations session demo"
+  }
+}

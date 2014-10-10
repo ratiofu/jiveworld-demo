@@ -45,7 +45,7 @@ function processTileInstance(instance) {
       if (!actualCount) {
         return;
       }
-      var data = getFormattedData(actualCount);
+      var data = getFormattedData(actualCount, instance);
       jive.extstreams.pushActivity(instance, data);
     })
     .fail(function(error) {
@@ -56,27 +56,28 @@ function processTileInstance(instance) {
     });
 }
 
-function getFormattedData(count) {
-    return {
-        "activity": {
-            "action": {
-                "name": "posted",
-                "description": "Total number of failures " + count
-            },
-            "actor": {
-                "name": "Performance Monitoring Service",
-                "email": "perfserv@email.com"
-            },
-            "object": {
-                "type": "website",
-                "url": "http://www.monitoring-service.com",
-                "image": "http://placehold.it/102x102",
-                "title": "Total number of failures " + count,
-                "description": "Activity " + count
-            },
-            "externalID": '' + Date.now()
-        }
-    };
+function getFormattedData(count, instance) {
+  return {
+    "activity": {
+      "action": {
+        "name": "posted",
+        "description": "Total number of failures " + count
+      },
+      "actor": {
+        "name": "Performance Monitoring Service",
+        "email": "perfserv@email.com"
+      },
+      "object": {
+        "type": "website",
+        "url": "http://www.monitoring-service.com/failures/" + encodeURI(instance.jiveCommunity),
+        "image": "http://placehold.it/102x102",
+        "title": "Total number of failures " + count,
+        "description":
+        	"For detailed information about these failures, click 'Go to item'."
+      },
+      "externalID": '' + Date.now()
+    }
+  };
 }
 
 function pushData() {
@@ -91,7 +92,7 @@ function pushData() {
 
 exports.task = [
     {
-        'interval' : 2500,
+        'interval' : 10000,
         'handler' : pushData
     }
 ];

@@ -5,5 +5,6 @@
 /db/tileInstance.json
 /db/extstreamInstance.json
 /db/extstreamsDefinition.json
+/db/performanceNotificationCount.json
 /.project
 /extension.zip

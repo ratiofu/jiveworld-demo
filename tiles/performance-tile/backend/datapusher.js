@@ -32,13 +32,8 @@ function processTileInstance(instance) {
 
   function pushSection(index, responseTime) {
     var label = tileData.sections[index].label;
-    var message = tileData.message + ": ";
-    if (responseTime) {
-      responseTime = (responseTime + " ms");
-    } else {
-      responseTime = "failure";
-    }
-    message += responseTime;
+    responseTime = responseTime ? responseTime + "ms" : "failure";
+    var message = tileData.message + ": " + responseTime;
     jive.logger.info("update tile %s to index %d with label '%s' and message: %s",
       instance.id, index, label, message);
     var dataToPush = {
@@ -49,6 +44,7 @@ function processTileInstance(instance) {
             "status": label,
             "action": {
                 "text": "Discuss the current performance",
+                "url": "/performance-tile/action"
                 "context": {
                   "responseTime": responseTime,
                   "level": index,

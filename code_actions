@@ -1,0 +1,156 @@
+$ : execute
+> : edit
+# : browse
+
+[ Prep ]
+$ log in to sandbox
+$ clean out everything, recreate group
+$ uninstall add-on
+$ log in to nitrous
+$ have lib.js up as raw file in browser
+
+$ Fire up a brand new nitrous box
+
+[ Intro ]
+[0:00]
+
+$ cd workspace
+$ npm install -g jive-sdk
+
+[ Building a Service ]
+[3:00]
+
+(maximize screen)
+$ jive-sdk help
+$ jive-sdk list services
+$ jive-sdk create example-service --name="performanceservice"
+
+[4:00]
+> set tab to 4
+> jiveclientconfiguration.json:
+  * change port to 3000 (maps to 80 on nitrous) ?? try with 80 ??
+  * change URL to the nitrous.io box host name
+
+[5:00]
+
+$ npm update
+> show app.js
+
+$ node app.js
+# (click Preview) <host>/performanceservice/hello
+> delete service/performanceservice/definition.json
+
+$ node app.js
+> delete public folder
+
+> services/performanceservice/backend/routes/explicit_routes.js:
+  * last
+  * Math.round(Math.random() * 2499) + 1
+  * var jive = require('jive-sdk');
+  * jive.logger.info
+  * return string
+
+> delete services.js
+$ node app.js
+# host:3000/performanceservice/last
+
+[ Building a Tile ]
+[11:00]
+
+$ jive-sdk list tiles
+$ jive-sdk create tile-gauge --name="performance-tile"
+$ npm update
+
+> edit definition.json:
+  #021677 #5a2bac #0088e1 #00c4dc
+  Trouble! Slow! Good Fast
+  "message": "Remote Service Performance"
+  "displayName": "Remote Performance"
+  "description": "Shows performance indicators of a remote service"
+  ! add the action and explain why
+> cheating with lib.js: copy from checkout
+  
+> datapusher.js:
+  sections = require("../definition.json").sampleData
+
+[18:00]
+
+- file can be named anything, what's important is the exports
+
+> pull exports to the top
+
+- .task: explain what exports.task does, change the interval to 5000 for demo purposes
+- .eventHandlers ...
+
+        .fail(function(error) {
+            console.log(error);
+        });
+
+- because we're reusing the tile definition for the sections, we
+  won't need the following functions  
+  > delete createSections
+  > delete getSectionColor
+ 
+- set up the section ranges as arrays, and explain that this is easier than using keys
+
+> configure/get.js
+  - clean up code a bit
+
+# delete main.css and use /public/stylesheets/style.css instead
+  body {
+      background-color: #eee;
+      margin:20px;
+  }
+  label, p { display: block; margin: 0.4em 0; }
+  label input, label strong { display: inline-block; width: 4em; text-align: right; }
+  button { font-size: 1.15em; font-weight: bold }
+
+> configuration.html
+  - change the form (explain indexes)
+
+> main.js
+  TODO (don't rename!!)
+
+[25:00]
+
+[ Deploying a Tile ]
+
+> db/jiveExtension.json "name": "JiveWorld Purposeful Places Add-on",
+  "description": "Jive Node SDK-based integrations session demo"
+$ node app.js
+- install add-on > avatar > Add-ons > Upload Package > ...
+- in our case, where we're using the default file-based Jive persistence, the Jive instance's registration information show up in the db folder
+
+[28:00]
+
+[ Adding a Tile Action ]
+
+- let's add an action to the tile
+
+> new get.js
+> new action.html
+> new action.js
+> update datapusher.js to return action URL and 
+
+- funkiness with action context: have to deserialize twice
+
+[38:00]
+
+[ Adding a Stream Integration ]
+
+$ jive-sdk list tiles
+$ jive-sdk create tile-activity --name="performance-notification"
+
+> templates.json
+  - using a template
+  - add the performance-notification
+  - nice names
+
+> customize stream integration
+
+$ node app.js
+- upload new package
+
+[40:00]
+- create a new place based on the addons template
+- TODO add the gauge tile to MyPage

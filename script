@@ -102,6 +102,7 @@ $ npm update
   "displayName": "Remote Performance"
   "description": "Shows performance indicators of a remote service"
   ! add the action and explain why
+  DON'T CHANGE THE NAME!!!!
 > cheating with lib.js:
   
 > datapusher.js:

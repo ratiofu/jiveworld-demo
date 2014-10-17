@@ -48,11 +48,16 @@ exports.eventHandlers = [
 ];
 
 function pushData() {
-    jive.tiles.findByDefinitionName('performance-tile').then( function(instances) {
+    jive.tiles.findByDefinitionName('performance-tile')
+      .then( function(instances) {
         if (instances) {
             instances.forEach(processTileInstance);
         }
-    });
+      })
+      .fail(function(error) {
+        jive.logger.error(error);
+        pushSection(0)
+      });
 }
 
 function processTileInstance(instance) {
@@ -61,10 +66,10 @@ function processTileInstance(instance) {
       var index = lib.getRangeIndex(instance.config.ranges || defaultRanges, body);
       pushSection(index, body);
     })
-    .fail(function(error) { 
+    .fail(function(error) {
       jive.logger.error(error);
       pushSection(0)
-    })
+    });
 
   function pushSection(index, responseTime) {
     var label = tileData.sections[index].label;

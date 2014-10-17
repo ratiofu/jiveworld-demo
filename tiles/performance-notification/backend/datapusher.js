@@ -85,9 +85,14 @@ function getFormattedData(count, responseTime, instance) {
 }
 
 function pushData() {
-  jive.extstreams.findByDefinitionName('performance-notification').then(function(instances) {
-    if (instances) {
-      instances.forEach(processTileInstance);
-    }
-  });
+  jive.extstreams.findByDefinitionName('performance-notification')
+    .then(function(instances) {
+      if (instances) {
+        instances.forEach(processTileInstance);
+      }
+    })
+    .fail(function(error) {
+      jive.logger.error(error);
+      pushSection(0)
+    });
 };

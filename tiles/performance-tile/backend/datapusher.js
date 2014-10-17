@@ -56,7 +56,6 @@ function pushData() {
       })
       .fail(function(error) {
         jive.logger.error(error);
-        pushSection(0)
       });
 }
 

@@ -2,5 +2,6 @@
     // DON'T PUT A SLASH AT THE END OF URL!!!!!!!
     "clientUrl": "http://localhost",
     "port": "3000",
-    "development" : true
+    "development" : true,
+    "fileFlushInterval": 2000
 }

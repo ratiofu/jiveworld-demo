@@ -9,7 +9,6 @@ $ uninstall add-on
 $ log in to nitrous
 $ have 'https://github.com/tjconsult/jiveworld-demo' in clipboard
 $ select node!
-$ have lib.js up as raw file in browser
 
 $ Fire up a brand new nitrous box
 
@@ -135,6 +134,7 @@ $ customize stream integration
 > get.js
 > configuration.html
 > delete js
+> definition.json
 
 $ node app.js
 - upload new package
@@ -142,3 +142,5 @@ $ node app.js
 [40:00]
 - create a new place based on the addons template
 - TODO add the gauge tile to MyPage
+
+"The applied template has social group type of 'Open', but the current setting is 'Secret'. You can change it in the About menu."

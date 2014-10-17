@@ -6,8 +6,7 @@ var jive = require("jive-sdk"),
 
 exports.getPerformance = function() {
   var deferred = q.defer(),
-      port = jive.service.options.port || 80,
-      url = jive.service.options.clientUrl + ":" + port + "/performanceservice/last";
+      url = jive.service.serviceURL() + "/performanceservice/last";
   request.get({uri: url, timeout: 2500}, function(err, response, body) {
     if (err) {
       deferred.reject();
@@ -35,7 +34,7 @@ exports.getRangeIndex = function(ranges, body) {
     if (responseTime < limit && limit < lastLimit) {
       result = index;
       lastLimit = limit;
-    };
+    }
   });
   return result;
 }

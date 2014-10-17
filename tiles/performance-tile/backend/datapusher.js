@@ -19,54 +19,6 @@ var jive = require("jive-sdk"),
     tileData = require("../definition.json").sampleData,
     defaultRanges = [ 1, 2000, 1500, 1000 ];
 
-function processTileInstance(instance) {
-  lib.getPerformance()
-    .then(function(body) {
-      var index = lib.getRangeIndex(instance.config.ranges || defaultRanges, body);
-      pushSection(index, body);
-    })
-    .fail(function(error) { 
-      jive.logger.error(error);
-      pushSection(0)
-    })
-
-  function pushSection(index, responseTime) {
-    var label = tileData.sections[index].label;
-    responseTime = responseTime ? responseTime + "ms" : "failure";
-    var message = tileData.message + ": " + responseTime;
-    jive.logger.info("update tile %s to index %d with label '%s' and message: %s",
-      instance.id, index, label, message);
-    var dataToPush = {
-        data: {
-            "message": message,
-            "sections": tileData.sections,
-            "activeIndex": index,
-            "status": label,
-            "action": {
-                "text": "Discuss the current performance",
-                "url": "/performance-tile/action"
-                "context": {
-                  "responseTime": responseTime,
-                  "level": index,
-                  "label": label
-                }
-              }
-        }
-    };
-    jive.tiles.pushData(instance, dataToPush);
-  }
-}
-
-function pushData() {
-    jive.tiles.findByDefinitionName('performance-tile').then( function(instances) {
-        if ( instances ) {
-            instances.forEach( function( instance ) {
-                processTileInstance(instance);
-            });
-        }
-    });
-}
-
 /**
  * Schedules the tile update task to automatically fire every 10 seconds
  */
@@ -95,5 +47,47 @@ exports.eventHandlers = [
     }
 ];
 
+function pushData() {
+    jive.tiles.findByDefinitionName('performance-tile').then( function(instances) {
+        if (instances) {
+            instances.forEach(processTileInstance);
+        }
+    });
+}
 
+function processTileInstance(instance) {
+  lib.getPerformance()
+    .then(function(body) {
+      var index = lib.getRangeIndex(instance.config.ranges || defaultRanges, body);
+      pushSection(index, body);
+    })
+    .fail(function(error) { 
+      jive.logger.error(error);
+      pushSection(0)
+    })
 
+  function pushSection(index, responseTime) {
+    var label = tileData.sections[index].label;
+    responseTime = responseTime ? responseTime + "ms" : "failure";
+    var message = tileData.message + ": " + responseTime;
+    jive.logger.info("update tile %s to index %d with label '%s' and message: %s",
+      instance.id, index, label, message);
+    var dataToPush = {
+        data: {
+            "message": message,
+            "sections": tileData.sections,
+            "activeIndex": index,
+            "status": label,
+            "action": {
+                "text": "Discuss the current performance",
+                "context": {
+                  "responseTime": responseTime,
+                  "level": index,
+                  "label": label
+                }
+              }
+        }
+    };
+    jive.tiles.pushData(instance, dataToPush);
+  }
+}

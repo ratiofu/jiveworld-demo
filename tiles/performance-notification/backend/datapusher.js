@@ -20,43 +20,47 @@ var jive = require("jive-sdk"),
     ABORT = new Error("not a failure"),
     STORE = 'performanceNotificationCount';
 
+exports.task = [
+    {
+        'interval' : 10000,
+        'handler' : pushData
+    }
+];
+
 function processTileInstance(instance) {
-  var actualCount;
+  var actualCount, responseTime;
   lib.getPerformance()
     .then(function(body) {
       if (lib.getRangeIndex([0, 2000], body) !== 0) {
         throw ABORT;
       }
+      responseTime = body;
       // count failures only
       return store.find(STORE, { 'key':'count' });
     })
     .then(function(counts) {
-      if (!counts) {
-        return;
-      }
       var count = counts.length > 0 ? counts[0].count : 0;
       actualCount = count + 1;
-      return store.save(STORE, 'count', {
+      return store.save(STORE, 'failureCount', {
           'key': 'count',
           'count': actualCount
       })
     })
     .then(function() {
-      if (!actualCount) {
-        return;
-      }
-      var data = getFormattedData(actualCount, instance);
+      var data = getFormattedData(actualCount, responseTime, instance);
+      jive.logger.info(
+        "pushing %s to activity stream %s, access token %s",
+        JSON.stringify(data), instance.id, instance.accessToken);
       jive.extstreams.pushActivity(instance, data);
     })
     .fail(function(error) {
-      if (!error || error.message === ABORT.message) {
-        return;
+      if (error && error.message === ABORT.message) {
+        jive.logger.error(error);
       }
-      jive.logger.error(error);
     });
 }
 
-function getFormattedData(count, instance) {
+function getFormattedData(count, responseTime, instance) {
   return {
     "activity": {
       "action": {
@@ -72,10 +76,10 @@ function getFormattedData(count, instance) {
         "url": "http://www.monitoring-service.com/failures/" + encodeURI(instance.jiveCommunity),
         "image": "http://placehold.it/102x102",
         "title": "Total number of failures " + count,
-        "description":
-        	"For detailed information about these failures, click 'Go to item'."
+        "description": "Response time was " + responseTime +
+          "ms. For detailed failure information, click on 'Go to item'"
       },
-      "externalID": '' + Date.now()
+      "externalID": '' + instance.id + ':' + Date.now()
     }
   };
 }
@@ -83,16 +87,7 @@ function getFormattedData(count, instance) {
 function pushData() {
   jive.extstreams.findByDefinitionName('performance-notification').then(function(instances) {
     if (instances) {
-      instances.forEach(function(instance) {
-        processTileInstance(instance);
-      });
+      instances.forEach(processTileInstance);
     }
   });
 };
-
-exports.task = [
-    {
-        'interval' : 10000,
-        'handler' : pushData
-    }
-];

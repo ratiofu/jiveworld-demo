@@ -1,3 +1,9 @@
+https://github.com/jivesoftware/jive-persistence-mongo/issues/2
+
+Tile Styles: https://community.jivesoftware.com/docs/DOC-124346
+Tile Actions: https://community.jivesoftware.com/docs/DOC-129789
+Using Nitrous: https://community.jivesoftware.com/docs/DOC-123753
+
 - : talk
 $ : execute
 > : edit
@@ -31,6 +37,7 @@ $ npm install -g jive-sdk
 $ jive-sdk help
 $ jive-sdk list services
 $ jive-sdk create example-service --name="performanceservice"
+- show app.js
 
 [4:00]
 
@@ -52,6 +59,7 @@ $ npm update
   which in turn renders a templace server-side and sends it to the browser
 
 # delete service/performanceservice/definition.json
+# delete public folder
 
 - let's see if the basics work
 
@@ -69,7 +77,7 @@ $ node app.js
   - jive.logger.info to log what we're sending ... needs var jive = require('jive-sdk')
   - make sure we're returning a String or express gets confused
 
-> delete all the other stuff in service
+> delete services.js
 $ node app.js
 # host:3000/performanceservice/last
 
@@ -92,10 +100,12 @@ $ npm update
   "displayName": "Remote Performance"
   "description": "Shows performance indicators of a remote service"
   ! add the action and explain why
-> lib.js:
+> cheating with lib.js:
   
 > datapusher.js:
   sections = require("../definition.json").sampleData
+
+[18:00]
 
 - file can be named anything, what's important is the exports
 
@@ -131,7 +141,7 @@ $ rename main.js to config.js
 > main.js
   TODO (don't rename!!)
 
-[21:00]
+[25:00]
 
 [ Deploying a Tile ]
 
@@ -143,7 +153,7 @@ $ node app.js
 - install add-on > avatar > Add-ons > Upload Package > ...
 - in our case, where we're using the default file-based Jive persistence, the Jive instance's registration information show up in the db folder
 
-[25:00]
+[28:00]
 
 [ Adding a Tile Action ]
 
@@ -156,11 +166,24 @@ $ node app.js
 
 - funkiness with action context: have to deserialize twice
 
-[35:00]
+[38:00]
 
 [ Adding a Stream Integration ]
 
 $ jive-sdk list tiles
 $ jive-sdk create tile-activity --name="performance-notification"
+
+> templates.json
+  - using a template
+  - add the performance-notification
+  - nice names
+
+> customize stream integration
+
+$ node app.js
+- upload new package
+
+
+[??:00]
 
 

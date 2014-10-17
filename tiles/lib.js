@@ -16,6 +16,10 @@ exports.getPerformance = function() {
   return deferred.promise;
 }
 
+/**
+ * [ 1, 2000, 1500, 500 ] and a 'body' responseTime
+ * example: responseTime '750' would return index 2
+ */
 exports.getRangeIndex = function(ranges, body) {
   var responseTime = parseInt(body);
   if (isNaN(responseTime) || responseTime < 1) {

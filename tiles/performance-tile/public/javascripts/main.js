@@ -1,6 +1,6 @@
 jive.tile.onOpen(function(config, options) {
     gadgets.window.adjustHeight();
-    if (typeof config === "string" ) {
+    if (typeof config === "string") {
       config = JSON.parse(config);
     }
     var ranges = config.ranges || [ null, 2000, 1500, 1000 ];
@@ -10,7 +10,7 @@ jive.tile.onOpen(function(config, options) {
         $("#limit_" + index).val(limit);
       }
     });
-    $("#btn_submit").click( function() {
+    $("#btn_submit").click(function() {
         ranges.forEach(function(limit, index) {
           if (limit) {
             ranges[index] = parseInt($("#limit_" + index).val()) || limit;
@@ -18,6 +18,5 @@ jive.tile.onOpen(function(config, options) {
         });
         config.ranges = ranges;
         jive.tile.close(config, {} );
-        gadgets.window.adjustHeight(300);
     });
 });

@@ -9,28 +9,30 @@ $ : execute
 > : edit
 # : browse
 
-- Todd bridges time with some talk
 
 $ Fire up a brand new nitrous box
 
 [ Intro ]
-
-- let's write an integration, starting with installing the SDK
-
 [0:00]
+
+- Thomas is going to get a bit of a head start
+- Most of you have already done what he's doing; creating a Nitrous.io box and installing the jive-sdk
+- we're going to assume you're somewhat familiar with node.js and javascript
+- even if you're not, this should be pretty easy to follow and pickup
+
 
 $ cd workspace
 $ npm install -g jive-sdk
 
-- we'll need a source of data with which to integrate,
-  so let's whip up a quick service that creates some
-- we're pretending that there's a source of performance-related
-  data, let's say a request duration for a live system
-- we'll just generate a bunch of random numbers within a certain
-  range and make those available as a web service
-- this isn't really part of what one needs to do for a tile
-  integration, but it's easy enough with the SDK, so here we go
-- the following assumes basic familiarity with Node JS and NPM
+- while that's happening, let me explain what we're building
+- we're pretending there's a remote system that returns some meaningful measurement
+- lower numbers are better; ping response or load time, open issues, idle cash . . . whatever
+- envision something from your companies environment; web service, html page, api . . . whatever
+- for the demo, we're going to create a web service that returns random numbers within a range
+
+- for our tile integrations, we're going to create a middleware server with the jive-sdk
+- we could have done this in Java, C#, Ruby . . . whatever
+- jive-sdk just makes it really easy . . . and fun
 
 [3:00] (maximize screen)
 
@@ -54,9 +56,9 @@ $ jive-sdk create example-service --name="performanceservice"
 
 $ npm update
 
-- jive-sdk is built on top of express 3, but the SDK will auto-discover routes and templates for you if you follow a particular folder structure
-  so you'll find routes under a folder named backend, and as you can see we're starting out with a hello endpoint implementing a get method,
-  which in turn renders a templace server-side and sends it to the browser
+- jive-sdk is built on top of express 3, but the SDK auto-discovers routes
+- we're actually going to look at a couple of different ways to create routes and endpoints
+- we'll start with a simple "hello" endpoint to see the easiest way to do this
 
 # delete service/performanceservice/definition.json
 # delete public folder
@@ -68,7 +70,7 @@ $ npm update
 $ node app.js
 # (click Preview) <host>/performanceservice/hello
 
-- alright, that looks good, but we want a service that give use back a random number
+- alright, that looks good, so now let's write the service that give use back a random number
 
 > services/performanceservice/backend/routes/explicit_routes.js:
   - the name of the export is the name of the explicit endpoint, let's name it "last"
@@ -187,3 +189,6 @@ $ node app.js
 [??:00]
 
 
+    TODO create a new place based on the addons template
+
+    TODO add the gauge tile to MyPage

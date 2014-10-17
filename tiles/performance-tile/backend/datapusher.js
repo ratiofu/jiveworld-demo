@@ -82,7 +82,7 @@ function processTileInstance(instance) {
             "message": message,
             "sections": tileData.sections,
             "activeIndex": index,
-            "status": label,
+            "status": label /*,
             "action": {
                 "text": "Discuss the current performance",
                 "context": {
@@ -90,7 +90,7 @@ function processTileInstance(instance) {
                   "level": index,
                   "label": label
                 }
-              }
+              }*/
         }
     };
     jive.tiles.pushData(instance, dataToPush);

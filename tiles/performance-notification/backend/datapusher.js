@@ -27,6 +27,18 @@ exports.task = [
     }
 ];
 
+function pushData() {
+  jive.extstreams.findByDefinitionName('performance-notification')
+    .then(function(instances) {
+      if (instances) {
+        instances.forEach(processTileInstance);
+      }
+    })
+    .fail(function(error) {
+      jive.logger.error(error);
+    });
+};
+
 function processTileInstance(instance) {
   var actualCount, responseTime;
   lib.getPerformance()
@@ -36,7 +48,7 @@ function processTileInstance(instance) {
       }
       responseTime = body;
       // count failures only
-      return store.find(STORE, { 'key':'count' });
+      return store.find(STORE, { key:'count' });
     })
     .then(function(counts) {
       var count = counts.length > 0 ? counts[0].count : 0;
@@ -54,7 +66,7 @@ function processTileInstance(instance) {
       jive.extstreams.pushActivity(instance, data);
     })
     .fail(function(error) {
-      if (error && error.message === ABORT.message) {
+      if (error && error.message !== ABORT.message) {
         jive.logger.error(error);
       }
     });
@@ -83,16 +95,3 @@ function getFormattedData(count, responseTime, instance) {
     }
   };
 }
-
-function pushData() {
-  jive.extstreams.findByDefinitionName('performance-notification')
-    .then(function(instances) {
-      if (instances) {
-        instances.forEach(processTileInstance);
-      }
-    })
-    .fail(function(error) {
-      jive.logger.error(error);
-      pushSection(0)
-    });
-};

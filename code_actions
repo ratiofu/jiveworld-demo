@@ -7,6 +7,8 @@ $ log in to sandbox
 $ clean out everything, recreate group
 $ uninstall add-on
 $ log in to nitrous
+$ have 'https://github.com/tjconsult/jiveworld-demo' in clipboard
+$ select node!
 $ have lib.js up as raw file in browser
 
 $ Fire up a brand new nitrous box
@@ -71,27 +73,16 @@ $ npm update
 > cheating with lib.js: copy from checkout
   
 > datapusher.js:
-  sections = require("../definition.json").sampleData
+  var jive = require("jive-sdk"),
+    lib = require("../../lib"),
+    tileData = require("../definition.json").sampleData,
+    defaultRanges = [ 1, 2000, 1500, 1000 ];
+  
+  .fail(function(error) {
+      console.log(error);
+  });
 
-[18:00]
-
-- file can be named anything, what's important is the exports
-
-> pull exports to the top
-
-- .task: explain what exports.task does, change the interval to 5000 for demo purposes
-- .eventHandlers ...
-
-        .fail(function(error) {
-            console.log(error);
-        });
-
-- because we're reusing the tile definition for the sections, we
-  won't need the following functions  
-  > delete createSections
-  > delete getSectionColor
- 
-- set up the section ranges as arrays, and explain that this is easier than using keys
+  copy & paste pusher, but delete action data
 
 > configure/get.js
   - clean up code a bit
@@ -116,7 +107,7 @@ $ npm update
 [ Deploying a Tile ]
 
 > db/jiveExtension.json "name": "JiveWorld Purposeful Places Add-on",
-  "description": "Jive Node SDK-based integrations session demo"
+  "description": "Jive Node SDK Demo"
 $ node app.js
 - install add-on > avatar > Add-ons > Upload Package > ...
 - in our case, where we're using the default file-based Jive persistence, the Jive instance's registration information show up in the db folder
@@ -125,14 +116,10 @@ $ node app.js
 
 [ Adding a Tile Action ]
 
-- let's add an action to the tile
-
 > new get.js
 > new action.html
 > new action.js
 > update datapusher.js to return action URL and 
-
-- funkiness with action context: have to deserialize twice
 
 [38:00]
 
@@ -142,11 +129,12 @@ $ jive-sdk list tiles
 $ jive-sdk create tile-activity --name="performance-notification"
 
 > templates.json
-  - using a template
-  - add the performance-notification
-  - nice names
+  add the performance-notification
 
-> customize stream integration
+$ customize stream integration
+> get.js
+> configuration.html
+> delete js
 
 $ node app.js
 - upload new package

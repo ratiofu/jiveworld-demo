@@ -2,6 +2,8 @@ var jive = require("jive-sdk"),
     request = require("request"),
     q = require("q");
 
+// TODO: replace with jive.service.serviceURL()
+
 exports.getPerformance = function() {
   var deferred = q.defer(),
       port = jive.service.options.port || 80,

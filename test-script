@@ -1,0 +1,51 @@
+- : talk
+$ : execute
+> : edit
+# : browse
+
+[ Intro ]
+
+$ nitrous
+$ npm install -g jive-sdk
+
+[ Using the examples ]
+- first, let's look at building our first tile from an example
+
+$ jive-sdk create tile-gauge --name="from-zero-to-working"
+
+> jiveclientconfiguration.json (url, port, extensionInfo)
+$ node app.js
+
+- here's our tile
+
+[ Modify example tile ]
+
+> datapusher.js
+
+- Cool, but problems
+- Config is wrong
+- New tiles are wrong
+
+[ Let's create our fake service ]
+$ jive-sdk create example-service --name="working-service"
+$ npm update
+
+- opps
+> delete definition
+- better
+> delete other extras
+> explicit_route.js . . . add random number generator
+$ node app.js
+
+- whoo hoo
+
+$ (remove everything from sandbox)
+
+[ Upgrade our tile ]
+$ cp -R ../tmp/repo/tmp/v1 .
+$ npm update
+$ node app.js
+
+- ohhhhs and ahhhhs
+
+

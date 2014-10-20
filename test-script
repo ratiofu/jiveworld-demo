@@ -47,7 +47,7 @@ $ node app.js
 $ (remove everything from sandbox)
 
 [ Upgrade our tile ]
-$ cp -R ../tmp/repo/tmp/v1 .
+$ cp -R ../tmp/repo/tmp/v1/* .
 $ npm update
 $ node app.js
 

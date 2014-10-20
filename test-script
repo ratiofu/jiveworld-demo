@@ -11,7 +11,7 @@ $ npm install -g jive-sdk
 [ Using the examples ]
 - first, let's look at building our first tile from an example
 
-$ jive-sdk create tile-gauge --name="from-zero-to-working"
+$ jive-sdk create tile-gauge --name="performance-tile"
 
 > jiveclientconfiguration.json (url, port, extensionInfo)
 $ node app.js
@@ -27,7 +27,7 @@ $ node app.js
 - New tiles are wrong
 
 [ Let's create our fake service ]
-$ jive-sdk create example-service --name="working-service"
+$ jive-sdk create example-service --name="performanceservice"
 $ npm update
 
 - opps

@@ -50,7 +50,27 @@ $ (remove everything from sandbox)
 $ cp -R ../tmp/repo/tmp/v1/* .
 $ npm update
 $ node app.js
+(redeploy)
 
 - ohhhhs and ahhhhs
 
+[ Add Tile Action ]
+- Let's examine the changes we'll be making
+
+$ cp -R ../tmp/repo/tmp/v2/* .
+$ node app.js
+
+- Checkout the action
+
+$ (remove everything from sandbox)
+
+[ Add Stream Integration ]
+
+$ jive-sdk create tile-activity --name="performance-notification"
+$ npm update
+> templates.json
+> definition.json (displayName and description)
+(redeploy)
+
+$ cp -R ../tmp/repo/tmp/v3/* .
 

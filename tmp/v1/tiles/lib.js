@@ -6,7 +6,7 @@ var jive = require("jive-sdk"),
 
 exports.getPerformance = function() {
   var deferred = q.defer(),
-      url = jive.service.serviceURL() + "/working-service/last";
+      url = jive.service.serviceURL() + "/performanceservice/last";
   request.get({uri: url, timeout: 2500}, function(err, response, body) {
     if (err) {
       deferred.reject();

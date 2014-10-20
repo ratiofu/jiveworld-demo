@@ -6,6 +6,11 @@ $ : execute
 [ Intro ]
 
 $ nitrous
+$ mkdir tmp
+$ cd tmp
+$ git clone https://github.com/tjconsult/jiveworld-demo.git repo                 
+$ cd ../workspace
+
 $ npm install -g jive-sdk
 
 [ Using the examples ]

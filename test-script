@@ -5,11 +5,8 @@ $ : execute
 
 [ Intro ]
 
-$ nitrous
-$ mkdir tmp
-$ cd tmp
-$ git clone https://github.com/tjconsult/jiveworld-demo.git repo                 
-$ cd ../workspace
+$ nitrous            
+$ cd workspace
 
 $ npm install -g jive-sdk
 
@@ -19,6 +16,7 @@ $ npm install -g jive-sdk
 $ jive-sdk create tile-gauge --name="performance-tile"
 
 > jiveclientconfiguration.json (url, port, extensionInfo)
+$ npm update
 $ node app.js
 
 - here's our tile
@@ -30,23 +28,40 @@ $ node app.js
 - Cool, but problems
 - Config is wrong
 - New tiles are wrong
+(remove everything from sandbox)
 
 [ Let's create our fake service ]
 $ jive-sdk create example-service --name="performanceservice"
 $ npm update
 
+- jive-sdk auto discovers routes
+- makes it easy to create routes for allowing Jive to call you config UI and other endpoints
+- let's look at the routes that come with this example
+
 - opps
 > delete definition
 - better
+
 > delete other extras
+
+- let's create our fake service
+
 > explicit_route.js . . . add random number generator
 $ node app.js
 
 - whoo hoo
 
-$ (remove everything from sandbox)
-
 [ Upgrade our tile ]
+
+- let's look at the changes that will make our tile use our new service
+$ cd ../
+$ mkdir tmp
+$ cd tmp
+$ git clone https://github.com/tjconsult/jiveworld-demo.git repo     
+
+- let's look at the changes that will make our tile use our new service
+# (compare files)
+
 $ cp -R ../tmp/repo/tmp/v1/* .
 $ npm update
 $ node app.js

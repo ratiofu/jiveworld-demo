@@ -17,6 +17,9 @@ $ jive-sdk create tile-gauge --name="performance-tile"
 
 > jiveclientconfiguration.json (url, port, extensionInfo)
 $ npm update
+
+- express, routing, app.js
+
 $ node app.js
 
 - here's our tile
@@ -28,8 +31,6 @@ $ node app.js
 - Cool, but problems
 - Config is wrong
 - New tiles are wrong
-
-- update UUID from jiveExtension.json
 
 [ Let's create our fake service ]
 $ jive-sdk create example-service --name="performanceservice"
@@ -58,6 +59,8 @@ $ node app.js
 $ git clone https://github.com/tjconsult/jiveworld-demo jw14
 $ mv jw14/tmp/* ../tmp
 $ rm -rf jw14
+
+- update UUID from jiveExtension.json
 
 - let's look at the changes that will make our tile use our new service
 # (compare files)
@@ -88,3 +91,7 @@ $ npm update
 
 $ cp -R ../tmp/repo/tmp/v3/* .
 
+- applause and shouts of approval
+
+(Purposeful Place)
+(Page)

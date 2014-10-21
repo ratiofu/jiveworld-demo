@@ -2,8 +2,6 @@ var jive = require("jive-sdk"),
     request = require("request"),
     q = require("q");
 
-// TODO: replace with jive.service.serviceURL()
-
 exports.getPerformance = function() {
   var deferred = q.defer(),
       url = jive.service.serviceURL() + "/performanceservice/last";
